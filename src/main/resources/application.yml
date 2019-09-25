@@ -1,0 +1,43 @@
+server:
+  port: 8912
+
+spring:
+  application:
+    name: product-service
+  redis:
+    host: localhost
+    port: 6379
+    database: 0
+    password:
+  datasource:
+    url: jdbc:mysql://localhost:3306/spider?useUnicode=true&characterEncoding=utf-8&serverTimezone=CTT&useSSL=false
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 8
+      min-idle: 1
+      max-active: 20
+      max-wait: 60000
+      time-between-eviction-runsMillis: 60000
+      min-evictable-idle-timeMillis: 300000
+      validation-query: select 1
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml
+  type-aliases-package: com.xwq.spider.entity
+
+mapper:
+  mappers: com.xwq.spider.util.MyMapper
+  not-empty: false
+  identity: MYSQL
+
+logging:
+  file: "./logs/spider-log.log"
+  level:
+    com.xwq.spider: DEBUG
+

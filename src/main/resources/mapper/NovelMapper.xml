@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xwq.spider.mapper.NovelMapper" >
+
+    <insert id="batchInsert">
+        insert into novel(id, name, author, word_num, status, score, score_person_num, last_update_time, tags) VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id}, #{item.name}, #{item.author}, #{item.wordNum}, #{item.status}, #{item.score}, #{item.scorePersonNum}, #{item.lastUpdateTime}, #{item.tags})
+        </foreach>
+    </insert>
+</mapper>
