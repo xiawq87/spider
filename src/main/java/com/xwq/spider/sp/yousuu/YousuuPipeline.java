@@ -12,11 +12,15 @@ import us.codecraft.webmagic.pipeline.Pipeline;
 
 import java.util.List;
 
+/**
+ * 持久化小说数据
+ */
 public class YousuuPipeline implements Pipeline {
     private NovelMapper novelMapper = SpringContextUtil.getBean(NovelMapper.class);
 
     @Override
     public void process(ResultItems resultItems, Task task) {
+        //从列表页提取出除小说简介以外的所有信息，批量插入
         Object novelListObj = resultItems.get("novelList");
         if(null != novelListObj) {
             List<Novel> novelList = (List<Novel>) novelListObj;
@@ -25,6 +29,7 @@ public class YousuuPipeline implements Pipeline {
             }
         }
 
+        //从详情页提取出小说简介信息，更新
         Object novelDTOObj = resultItems.get("novelDTO");
         if(null != novelDTOObj) {
             NovelDTO novelDTO = (NovelDTO) novelDTOObj;

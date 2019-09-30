@@ -12,8 +12,6 @@ public class YousuuTask {
     private static final String SITE_CODE = "yousuu";
 
     private static final String URL = "http://www.yousuu.com/bookstore/?type&tag&countWord&status&update&sort&page=";
-    private static final int PAGE_SIZE = 20;
-
 
     public void doTask() {
         MySpider mySpider = MySpider.create(new YousuuProcessor());
@@ -26,8 +24,10 @@ public class YousuuTask {
 
         int totalPage = 8187;
 
+        // 添加起始url
         for(int i=1; i<=totalPage; i++) {
             Request request = new Request(URL + i);
+            // 在Request额外信息中设置页面类型
             request.putExtra(YousuuProcessor.TYPE, YousuuProcessor.LIST_TYPE);
             mySpider.addRequest(request);
         }

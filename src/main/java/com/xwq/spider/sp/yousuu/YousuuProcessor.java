@@ -23,6 +23,7 @@ public class YousuuProcessor implements PageProcessor {
 
     @Override
     public void process(Page page) {
+        // 从Request额外信息中取出页面类型，然后分别处理
         String type = page.getRequest().getExtra(TYPE).toString();
 
         switch (type) {
@@ -52,13 +53,13 @@ public class YousuuProcessor implements PageProcessor {
             String novelUrl = node.xpath("/div/a/@href").toString();
             String id = novelUrl.substring(novelUrl.lastIndexOf("/") + 1);
 
-            //将详情页url添加到调度器
+            // 将详情页url添加到调度器
             Request detlRequest = new Request("http://www.yousuu.com/book/" + id);
             detlRequest.putExtra(TYPE, DETL_TYPE);
             page.addTargetRequest(detlRequest);
 
 
-            //子节点下标值从1开始
+            // 子节点下标值从1开始
             String author = node.xpath("/div/p[1]/router-link/text()").toString();
             String wordNum = node.xpath("/div/p[1]/span[1]/text()").toString();
             String lastUpdateTime = node.xpath("/div/p[1]/span[2]/text()").toString();
